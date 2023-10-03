@@ -1,0 +1,28 @@
+# Compiled Java Classes #
+*.class
+
+# Binary Files #
+*.jar
+*.war
+*.ear
+
+# Build Artifacts #
+**/target/
+/target/
+*/target/
+
+# IDE-Specific Files #
+.classpath
+.project
+.settings
+*.iml
+*.idea
+
+# NetBeans-specific Files #
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
