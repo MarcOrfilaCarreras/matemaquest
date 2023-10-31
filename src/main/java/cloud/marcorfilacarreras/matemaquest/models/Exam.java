@@ -1,6 +1,9 @@
 package cloud.marcorfilacarreras.matemaquest.models;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +56,26 @@ public class Exam {
      */
     public String toJson() {
         Gson gson = new Gson();
+        return gson.toJson(this);
+    }
+    
+    /**
+     * Converts the ExamObject to JSON format using the Gson library.
+     * @return The JSON representation of the ExamObject without a field.
+     */
+    public String toJsonWithoutProperty(String field) {
+        Gson gson =  new GsonBuilder().setExclusionStrategies(new ExclusionStrategy() {
+            @Override
+            public boolean shouldSkipField(FieldAttributes f) {
+                return f.getName().equals(field);
+            }
+            
+            @Override
+            public boolean shouldSkipClass(Class<?> clazz) {
+                return false;
+            }
+        }).create();
+        
         return gson.toJson(this);
     }
 }

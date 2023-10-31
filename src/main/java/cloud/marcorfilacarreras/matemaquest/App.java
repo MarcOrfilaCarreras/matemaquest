@@ -1,9 +1,10 @@
 package cloud.marcorfilacarreras.matemaquest;
 
-import cloud.marcorfilacarreras.cloud.common.NotFoundHandler;
+import cloud.marcorfilacarreras.matemaquest.common.NotFoundHandler;
 import cloud.marcorfilacarreras.matemaquest.v1.ExamHandler;
 import cloud.marcorfilacarreras.matemaquest.v1.DefaultHandler;
-import cloud.marcorfilacarreras.cloud.common.RootHandler;
+import cloud.marcorfilacarreras.matemaquest.common.RootHandler;
+import cloud.marcorfilacarreras.matemaquest.v1.SearchHandler;
 import static spark.Spark.*;
 
 public class App {
@@ -21,6 +22,9 @@ public class App {
         
         // Call V1ExamHandler for the "/v1/exam/:id" endpoint
         get("/v1/exam/:id", new ExamHandler());
+        
+        // Call V1ExamHandler for the "/v1/exam/:id" endpoint
+        get("/v1/search", new SearchHandler());
         
         // Set up a default message for 404 errors
         notFound(new NotFoundHandler());

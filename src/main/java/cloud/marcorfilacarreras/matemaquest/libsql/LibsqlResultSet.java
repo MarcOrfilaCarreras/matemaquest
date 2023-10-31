@@ -15,5 +15,9 @@ public class LibsqlResultSet {
     public String getString(int columnIdx) {
       return (String) get(columnIdx);
     }
+    
+    public double getDouble(int columnIdx) {
+      return (double) get(columnIdx);
+    }
   }
 }
