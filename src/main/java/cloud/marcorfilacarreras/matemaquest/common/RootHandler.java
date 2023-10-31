@@ -1,4 +1,4 @@
-package cloud.marcorfilacarreras.cloud.common;
+package cloud.marcorfilacarreras.matemaquest.common;
 
 import spark.Request;
 import spark.Response;
