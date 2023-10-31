@@ -22,7 +22,7 @@ jobs:
       run: docker-compose down
 
     - name: Start containers
-      run: docker-compose up -d
+      run: docker-compose --env-file ../../../.env up -d
 
     - name: Remove old images
       run: docker image prune -f
