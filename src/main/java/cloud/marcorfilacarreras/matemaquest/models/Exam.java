@@ -15,6 +15,7 @@ public class Exam {
     private String name;
     private String level;
     private List<Question> questions = new ArrayList<>();
+    private String lang;
 
     /**
      * Default constructor for ExamObject.
@@ -28,10 +29,11 @@ public class Exam {
      * @param name The name of the exam.
      * @param level The level of the exam.
      */
-    public Exam(int id, String name, String level) {
+    public Exam(int id, String name, String level, String lang) {
         this.id = id;
         this.name = name;
         this.level = level;
+        this.lang = lang;
     }
 
     /**

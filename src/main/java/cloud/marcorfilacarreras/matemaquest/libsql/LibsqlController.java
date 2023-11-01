@@ -56,11 +56,11 @@ public class LibsqlController {
      * @param page The page of the search.
      * @return The String containing the response.
      */
-    public List<Exam> getSearch(int page) {
+    public List<Exam> getSearch(int page, String lang) {
         List<Exam> exams = new ArrayList<Exam>();
         
         // Constructing the query string
-        String query = "SELECT * FROM exams ORDER BY id LIMIT 10 " + " OFFSET " + ((page - 1) * 10) + ";";
+        String query = "SELECT * FROM exams where lang = '" + lang + "' ORDER BY id LIMIT 10 " + " OFFSET " + ((page - 1) * 10) + ";";
 
         // Creating the client instance for SQL operations
         LibsqlClient client = LibsqlClient.builder(url).authToken(authToken).build();
@@ -70,18 +70,18 @@ public class LibsqlController {
         
         // Iterating over the result set to construct QuestionObject instances and adding them to the exam
         for (LibsqlResultSet.Row row : rs.rows) {
-            Exam e = new Exam((int) row.getDouble(0), row.getString(1), row.getString(2));
+            Exam e = new Exam((int) row.getDouble(0), row.getString(1), row.getString(2), row.getString(3));
             exams.add(e);
         }
 
         return exams;
     }
     
-    public int getSearchPages() {
+    public int getSearchPages(String lang) {
         int totalPages = 0;
         
         // Constructing the query string
-        String query = "SELECT COUNT(*) FROM exams;";
+        String query = "SELECT COUNT(*) FROM exams where lang = '" + lang + "';";
         
         // Creating the client instance for SQL operations
         LibsqlClient client = LibsqlClient.builder(url).authToken(authToken).build();

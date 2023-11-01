@@ -23,8 +23,8 @@ public class SearchHandler implements Route {
         response.type("application/json");
 
         if (request.requestMethod().equals("GET")) {
-            // Defaulting the page number to 0
-            int page = 0;
+            int page = 0; // Defaulting the page number to 0
+            String lang = "es"; // Defaulting the lang to "es"
                         
             // Initializing JSON objects for constructing the response
             JsonObject responseJson = new JsonObject();
@@ -57,9 +57,25 @@ public class SearchHandler implements Route {
                 responseJson.add("data", messageJson);
                 return responseJson;
             }
+            
+            // Checking if the request contains a lang parameter
+            if (!request.queryMap("lang").hasValue()) {
+                // If no lang parameter is provided, set the lang to "es"
+                lang = "es";
+            } else {
+                // Checking if the value is "es" or "ca"
+                if (request.queryMap("lang").value().toLowerCase().equals("es") || request.queryMap("lang").value().toLowerCase().equals("ca")){
+                    lang = request.queryMap("lang").value();
+                } else {
+                    responseJson.addProperty("status", "fail");
+                    messageJson.addProperty("message", "Invalid lang. Please provide a valid lang (es / ca).");
+                    responseJson.add("data", messageJson);
+                    return responseJson;
+                }
+            }
 
             // Fetching search data from the database based on the provided page number
-            List<Exam> data = db.getSearch(page);
+            List<Exam> data = db.getSearch(page, lang.toLowerCase());
             
             // Adding the fetched search data to the response array after converting it to the appropriate JSON format
             for (Exam exam : data){
@@ -68,7 +84,7 @@ public class SearchHandler implements Route {
 
             // Adding metadata to the response message
             messageJson.addProperty("page", page);
-            messageJson.addProperty("pageCount", db.getSearchPages());
+            messageJson.addProperty("pageCount", db.getSearchPages(lang.toLowerCase()));
             
             // Constructing a success response with the search data
             responseJson.addProperty("status", "success");
