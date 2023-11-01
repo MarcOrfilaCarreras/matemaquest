@@ -40,6 +40,20 @@ public class Question {
         this.answer = answer;
         this.answer_image = answer_image;
     }
+
+    /**
+     * Gets the exercise_image of the question.
+     */
+    public String getExercise_image() {
+        return exercise_image;
+    }
+
+    /**
+     * Gets the answer_image of the question.
+     */
+    public String getAnswer_image() {
+        return answer_image;
+    }
     
     /**
      * Converts the QuestionObject to JSON format using the Gson library.

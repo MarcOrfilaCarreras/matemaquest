@@ -17,9 +17,9 @@ public class LibsqlController {
      * Retrieves an exam by its ID.
      *
      * @param id The ID of the exam.
-     * @return The String containing the response.
+     * @return The Exam containing the response.
      */
-    public String getExam(int id) {
+    public Exam getExam(int id) {
         Exam exam = new Exam();
         exam.setId(id);
 
@@ -47,13 +47,48 @@ public class LibsqlController {
             exam.appendQuestion(q);
         }
 
-        return exam.toJson();
+        return exam;
+    }
+    
+    /**
+     * Retrieves a question by its ID.
+     *
+     * @param id The ID of the question.
+     * @return The Question containing the response.
+     */
+    public Question getQuestion(int id) {
+        Question question = new Question();
+        
+        // Constructing the query string
+        String query = "SELECT * FROM questions where id = " + id + ";";
+
+        // Creating the client instance for SQL operations
+        LibsqlClient client = LibsqlClient.builder(url).authToken(authToken).build();
+
+        // Executing the SQL query and fetching the result set
+        LibsqlResultSet rs = client.execute(query);
+
+        // Iterating over the result set to construct QuestionObject instances
+        for (LibsqlResultSet.Row row : rs.rows) {
+            question = new Question(
+                    (String) row.get(1),
+                    (String) row.get(2),
+                    (String) row.get(3),
+                    (String) row.get(4),
+                    (String) row.get(5),
+                    (String) row.get(6),
+                    (String) row.get(7)
+            );
+        }
+
+        return question;
     }
     
     /**
      * Retrieves exams by its name.
      *
      * @param page The page of the search.
+     * @param lang The lang of the search.
      * @return The String containing the response.
      */
     public List<Exam> getSearch(int page, String lang) {
@@ -68,7 +103,7 @@ public class LibsqlController {
         // Executing the SQL query and fetching the result set
         LibsqlResultSet rs = client.execute(query);
         
-        // Iterating over the result set to construct QuestionObject instances and adding them to the exam
+        // Iterating over the result set to construct ExamObject instances and adding them to the list
         for (LibsqlResultSet.Row row : rs.rows) {
             Exam e = new Exam((int) row.getDouble(0), row.getString(1), row.getString(2), row.getString(3));
             exams.add(e);
@@ -89,7 +124,7 @@ public class LibsqlController {
         // Executing the SQL query and fetching the result set
         LibsqlResultSet rs = client.execute(query);
         
-        // Iterating over the result set to construct QuestionObject instances and adding them to the exam
+        // Iterating over the result set to calculate the number of pages
         for (LibsqlResultSet.Row row : rs.rows) {
             totalPages = ((int) row.getDouble(0) + 10 - 1) / 10;
         }

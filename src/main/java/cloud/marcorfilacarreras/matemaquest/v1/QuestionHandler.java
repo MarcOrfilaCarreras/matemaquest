@@ -1,7 +1,7 @@
 package cloud.marcorfilacarreras.matemaquest.v1;
 
 import cloud.marcorfilacarreras.matemaquest.libsql.LibsqlController;
-import cloud.marcorfilacarreras.matemaquest.models.Exam;
+import cloud.marcorfilacarreras.matemaquest.models.Question;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import spark.Request;
@@ -9,9 +9,9 @@ import spark.Response;
 import spark.Route;
 
 /**
- * Handler class to process requests for exams.
+ * Handler class to process requests for questions.
  */
-public class ExamHandler implements Route {
+public class QuestionHandler implements Route {
     // Initializing the database controller
     private final LibsqlController db = new LibsqlController();
 
@@ -47,12 +47,12 @@ public class ExamHandler implements Route {
                 return responseJson;
             }
 
-            // Fetching exam data from the database
-            Exam exam = db.getExam(id);
+            // Fetching question data from the database
+            Question question = db.getQuestion(id);
 
-            // Formulating a success response with the exam data
+            // Formulating a success response with the question data
             responseJson.addProperty("status", "success");
-            responseJson.add("data", new Gson().fromJson(exam.toJson(), JsonObject.class));
+            responseJson.add("data", new Gson().fromJson(question.toJson(), JsonObject.class));
 
             // Returning the JSON response
             return responseJson;
