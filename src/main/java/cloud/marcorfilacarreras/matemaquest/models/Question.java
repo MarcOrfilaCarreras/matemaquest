@@ -7,6 +7,7 @@ import com.google.gson.Gson;
  * Represents a question object that contains a file, title, exercise, exercise_image, options, answer and answer_image.
  */
 public class Question {
+    private int id;
     private String file;
     private String title;
     private String exercise;
@@ -23,6 +24,7 @@ public class Question {
     
     /**
      * Constructor for QuestionObject with parameters.
+     * @param id The id of the question.
      * @param file The file of the question.
      * @param title The title of the question.
      * @param exercise The exercise of the question.
@@ -31,7 +33,8 @@ public class Question {
      * @param answer The answer of the question.
      * @param answer_image The answer_image of the question.
      */
-    public Question(String file, String title, String exercise, String exercise_image, String options, String answer, String answer_image) {
+    public Question(int id, String file, String title, String exercise, String exercise_image, String options, String answer, String answer_image) {
+        this.id = id;
         this.file = file;
         this.title = title;
         this.exercise = exercise;

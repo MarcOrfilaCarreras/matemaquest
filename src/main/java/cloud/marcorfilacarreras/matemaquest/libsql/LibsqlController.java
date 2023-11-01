@@ -35,6 +35,7 @@ public class LibsqlController {
         // Iterating over the result set to construct QuestionObject instances and adding them to the exam
         for (LibsqlResultSet.Row row : rs.rows) {
             Question q = new Question(
+                    (int) row.getDouble(0),
                     (String) row.get(1),
                     (String) row.get(2),
                     (String) row.get(3),
@@ -71,6 +72,7 @@ public class LibsqlController {
         // Iterating over the result set to construct QuestionObject instances
         for (LibsqlResultSet.Row row : rs.rows) {
             question = new Question(
+                    (int) row.getDouble(0),
                     (String) row.get(1),
                     (String) row.get(2),
                     (String) row.get(3),
