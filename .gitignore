@@ -26,3 +26,9 @@ dist/
 nbdist/
 nbactions.xml
 nb-configuration.xml
+
+# Docker #
+docker-compose-dev.yml
+
+# Other #
+data/
