@@ -9,4 +9,16 @@ services:
     - ENVIRONMENT=production
     - LIBSQL_URL=${LIBSQL_URL}
     - LIBSQL_TOKEN=${LIBSQL_TOKEN}
+    - BASE_URL=${BASE_URL}
+    links:
+    - radian:radian
+    restart: always
+
+  radian:
+    container_name: radian
+    image: radian
+    ports:
+    - 2112:2112
+    volumes:
+    - ~/data:/data
     restart: always

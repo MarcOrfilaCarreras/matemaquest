@@ -18,11 +18,11 @@ jobs:
     - name: Get new Docker Image
       run: docker pull marcorfilacarreras/matemaquest
 
-    - name: Stop containers
-      run: docker-compose down
+    - name: Stop API
+      run: docker-compose rm -s -v -f app
 
     - name: Start containers
-      run: docker-compose --env-file ../../../.env up -d
+      run: docker-compose -f docker-compose.yml --env-file ../../../.env up -d app
 
     - name: Remove old images
       run: docker image prune -f
