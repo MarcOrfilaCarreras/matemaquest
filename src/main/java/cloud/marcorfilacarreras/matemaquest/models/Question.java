@@ -42,6 +42,8 @@ public class Question {
         this.options = options;
         this.answer = answer;
         this.answer_image = answer_image;
+        
+        buildUrl();
     }
 
     /**
@@ -65,5 +67,13 @@ public class Question {
     public String toJson(){
         Gson gson = new Gson();
         return gson.toJson(this);
+    }
+    
+    /**
+     * Build the image urls.
+     */
+    private void buildUrl(){
+        this.exercise_image = "/v1/question/" + this.id + "/image/exercise";
+        this.answer_image = "/v1/question/" + this.id + "/image/answer";
     }
 }
