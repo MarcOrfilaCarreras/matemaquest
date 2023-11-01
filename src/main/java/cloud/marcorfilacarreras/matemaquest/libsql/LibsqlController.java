@@ -44,7 +44,9 @@ public class LibsqlController {
                     (String) row.get(6),
                     (String) row.get(7)
             );
-
+            
+            q.buildUrl();
+            
             exam.appendQuestion(q);
         }
 

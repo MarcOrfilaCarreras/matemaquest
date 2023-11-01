@@ -42,8 +42,6 @@ public class Question {
         this.options = options;
         this.answer = answer;
         this.answer_image = answer_image;
-        
-        buildUrl();
     }
 
     /**
@@ -65,6 +63,8 @@ public class Question {
      * @return The JSON representation of the QuestionObject.
      */
     public String toJson(){
+        buildUrl();
+        
         Gson gson = new Gson();
         return gson.toJson(this);
     }
@@ -72,8 +72,13 @@ public class Question {
     /**
      * Build the image urls.
      */
-    private void buildUrl(){
-        this.exercise_image = "/v1/question/" + this.id + "/image/exercise";
-        this.answer_image = "/v1/question/" + this.id + "/image/answer";
+    public void buildUrl(){
+        if (!this.exercise_image.equals("null")){
+            this.exercise_image = "/v1/question/" + this.id + "/image/exercise";
+        }
+        
+        if (!this.answer_image.equals("null")){
+            this.answer_image = "/v1/question/" + this.id + "/image/answer";
+        }
     }
 }
