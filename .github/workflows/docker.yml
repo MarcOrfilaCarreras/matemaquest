@@ -2,6 +2,11 @@ name: Build
 
 on:
   workflow_call:
+    secrets:
+      DOCKER_USER:
+        required: true
+      DOCKER_PASS:
+        required: true
 
 jobs:
   docker:
