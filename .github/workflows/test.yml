@@ -31,3 +31,7 @@ jobs:
     needs: [test]
     uses: marcorfilacarreras/matemaquest/.github/workflows/docker.yml@master
     secrets: inherit
+
+  deploy:
+    needs: [test, docker]
+    uses: marcorfilacarreras/matemaquest/.github/workflows/deploy.yml@master
