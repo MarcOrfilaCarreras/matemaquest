@@ -1,6 +1,6 @@
 <div align="center">
 
-[![License](https://img.shields.io/github/license/MarcOrfilaCarreras/matemaquest?style=flat)](https://github.com/MarcOrfilaCarreras/matemaquest) &nbsp; ![Docker](https://img.shields.io/github/actions/workflow/status/MarcOrfilaCarreras/matemaquest/docker.yml?branch=master&label=docker&style=flat) &nbsp; ![Deploy](https://img.shields.io/github/actions/workflow/status/MarcOrfilaCarreras/matemaquest/deploy.yml?branch=master&label=deploy&style=flat)
+[![License](https://img.shields.io/github/license/MarcOrfilaCarreras/matemaquest?style=flat)](https://github.com/MarcOrfilaCarreras/matemaquest) &nbsp; [![.github/workflows/test.yml](https://github.com/MarcOrfilaCarreras/matemaquest/actions/workflows/test.yml/badge.svg)](https://github.com/MarcOrfilaCarreras/matemaquest/actions/workflows/test.yml) &nbsp; ![Docker](https://img.shields.io/github/actions/workflow/status/MarcOrfilaCarreras/matemaquest/docker.yml?branch=master&label=docker&style=flat) &nbsp; ![Deploy](https://img.shields.io/github/actions/workflow/status/MarcOrfilaCarreras/matemaquest/deploy.yml?branch=master&label=deploy&style=flat)
 
 </div>
 
