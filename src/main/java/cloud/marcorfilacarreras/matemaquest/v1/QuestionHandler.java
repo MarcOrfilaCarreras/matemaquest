@@ -35,6 +35,7 @@ public class QuestionHandler implements Route {
                 responseJson.addProperty("status", "fail");
                 messageJson.addProperty("message", "Invalid ID. Please provide a valid integer ID.");
                 responseJson.add("data", messageJson);
+                response.status(404);
                 return responseJson;
             }
 
@@ -44,6 +45,7 @@ public class QuestionHandler implements Route {
                 responseJson.addProperty("status", "fail");
                 messageJson.addProperty("message", "Invalid ID. Please provide a valid ID.");
                 responseJson.add("data", messageJson);
+                response.status(404);
                 return responseJson;
             }
 

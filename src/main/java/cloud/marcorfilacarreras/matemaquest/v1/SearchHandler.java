@@ -45,6 +45,7 @@ public class SearchHandler implements Route {
                     responseJson.addProperty("status", "fail");
                     messageJson.addProperty("message", "Invalid page. Please provide a valid page number.");
                     responseJson.add("data", messageJson);
+                    response.status(400);
                     return responseJson;
                 }
             }
@@ -55,6 +56,7 @@ public class SearchHandler implements Route {
                 responseJson.addProperty("status", "fail");
                 messageJson.addProperty("message", "Invalid page. Please provide a valid page number.");
                 responseJson.add("data", messageJson);
+                response.status(400);
                 return responseJson;
             }
             
@@ -70,6 +72,7 @@ public class SearchHandler implements Route {
                     responseJson.addProperty("status", "fail");
                     messageJson.addProperty("message", "Invalid lang. Please provide a valid lang (es / ca).");
                     responseJson.add("data", messageJson);
+                    response.status(400);
                     return responseJson;
                 }
             }
