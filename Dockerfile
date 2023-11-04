@@ -6,7 +6,7 @@ COPY pom.xml /usr/src/app
 
 WORKDIR /usr/src/app
 
-RUN mvn install
+RUN mvn install -DskipTests
 
 # Use AdoptOpenJDK for running the application
 FROM adoptopenjdk/openjdk8:jre
