@@ -1,8 +1,10 @@
 package cloud.marcorfilacarreras.matemaquest.v1;
 
+import cloud.marcorfilacarreras.matemaquest.common.NotFoundHandler;
 import cloud.marcorfilacarreras.matemaquest.libsql.LibsqlController;
 import cloud.marcorfilacarreras.matemaquest.radian.RadianController;
 import com.google.gson.JsonObject;
+import java.io.InputStream;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -55,12 +57,19 @@ public class QuestionImageHandler implements Route {
                 responseJson.add("data", messageJson);
                 return responseJson;
             }
+                        
+            InputStream image = radian.getImage(id, request.splat()[0]);
+                        
+            // Check if the image is null
+            if (image == null) {
+                return new NotFoundHandler().handle(request, response);
+            }
 
             // Setting the response type to image/png
             response.type("image/png");
 
             // Returning the image content associated with the provided ID and URI
-            return radian.getImage(id, request.splat()[0]);
+            return image;
         }
 
         // Handling an invalid request method
