@@ -1,5 +1,6 @@
 package cloud.marcorfilacarreras.matemaquest.v1;
 
+import cloud.marcorfilacarreras.matemaquest.common.NotFoundHandler;
 import cloud.marcorfilacarreras.matemaquest.libsql.LibsqlController;
 import cloud.marcorfilacarreras.matemaquest.models.Question;
 import com.google.gson.Gson;
@@ -51,6 +52,11 @@ public class QuestionHandler implements Route {
 
             // Fetching question data from the database
             Question question = db.getQuestion(id);
+            
+            // Check if the exam has questions
+            if (question == null){
+                return new NotFoundHandler().handle(request, response);
+            }
 
             // Formulating a success response with the question data
             responseJson.addProperty("status", "success");

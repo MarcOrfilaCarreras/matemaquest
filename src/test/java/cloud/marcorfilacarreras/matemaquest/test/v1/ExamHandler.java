@@ -77,4 +77,23 @@ public class ExamHandler {
             .and()
             .statusCode(404);
     }
+    
+    /**
+     * Test case to verify the response when an exam id does not exist.
+     */
+    @Test
+    public void getNonExistentExam() {
+        given()
+            .when()
+            .get("/exam/100000")
+            .then()
+            .assertThat()
+            .contentType(ContentType.JSON)
+            .and()
+            .body("status", equalTo("fail"))
+            .and()
+            .body("data.message", equalTo("Not found."))
+            .and()
+            .statusCode(404);
+    }
 }

@@ -76,4 +76,23 @@ public class QuestionHandler {
             .and()
             .statusCode(404);
     }
+    
+    /**
+     * Test case to verify the response when a question id does not exist.
+     */
+    @Test
+    public void getNonExistentQuestion() {
+        given()
+            .when()
+            .get("/question/100000")
+            .then()
+            .assertThat()
+            .contentType(ContentType.JSON)
+            .and()
+            .body("status", equalTo("fail"))
+            .and()
+            .body("data.message", equalTo("Not found."))
+            .and()
+            .statusCode(404);
+    }
 }

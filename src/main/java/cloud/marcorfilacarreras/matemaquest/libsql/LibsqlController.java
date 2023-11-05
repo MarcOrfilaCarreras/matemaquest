@@ -31,6 +31,11 @@ public class LibsqlController {
 
         // Executing the SQL query and fetching the result set
         LibsqlResultSet rs = client.execute(query);
+        
+        // Check if the exam has questions
+        if (rs.rows.size() <= 0){
+            return null;
+        }
 
         // Iterating over the result set to construct QuestionObject instances and adding them to the exam
         for (LibsqlResultSet.Row row : rs.rows) {
@@ -70,6 +75,11 @@ public class LibsqlController {
 
         // Executing the SQL query and fetching the result set
         LibsqlResultSet rs = client.execute(query);
+        
+        // Check if the exam has questions
+        if (rs.rows.size() <= 0){
+            return null;
+        }
 
         // Iterating over the result set to construct QuestionObject instances
         for (LibsqlResultSet.Row row : rs.rows) {
