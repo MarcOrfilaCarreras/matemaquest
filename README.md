@@ -1,6 +1,6 @@
 <div align="center">
 
-[![License](https://img.shields.io/github/license/MarcOrfilaCarreras/matemaquest?style=flat)](https://github.com/MarcOrfilaCarreras/matemaquest) &nbsp; [![.github/workflows/test.yml](https://github.com/MarcOrfilaCarreras/matemaquest/actions/workflows/test.yml/badge.svg)](https://github.com/MarcOrfilaCarreras/matemaquest/actions/workflows/test.yml) &nbsp; ![Docker](https://img.shields.io/github/actions/workflow/status/MarcOrfilaCarreras/matemaquest/docker.yml?branch=master&label=docker&style=flat) &nbsp; ![Deploy](https://img.shields.io/github/actions/workflow/status/MarcOrfilaCarreras/matemaquest/deploy.yml?branch=master&label=deploy&style=flat)
+[![License](https://img.shields.io/github/license/MarcOrfilaCarreras/matemaquest?style=flat)](https://github.com/MarcOrfilaCarreras/matemaquest) &nbsp; [![.github/workflows/test.yml](https://github.com/MarcOrfilaCarreras/matemaquest/actions/workflows/test.yml/badge.svg)](https://github.com/MarcOrfilaCarreras/matemaquest/actions/workflows/test.yml)
 
 </div>
 
@@ -46,7 +46,7 @@ That's it!
 ## Diagrams
 ### Matemaquest API Architecture
 
-[![](https://mermaid.ink/img/pako:eNqFUU1vgzAM_SvIZ0B8BMJymNTCcTutp5UdUpKtaCRhgUzrEP99aZi0UlWaT_Z7jt9zPEGjGAcCb5r2R29X1dKzMZjDApSdMmzBVvjO6EH94efY7AUduaAfhg9jwPjny5rfrvheK3bRwOWvikuuTDyohnY3TFSqeed6rVJeqlw5qPaaspbKf3Q3XhDce-VSbC-L0hUV-CC4FrRl9uOmM1XDeOSC10BseqCDzWo52z5qRvV0kg2QURvug-mZtVe11G4ggLzSbrAoZ-2o9ONyCXcQH3oqgUzwBSTJ8xChFGGcpXkSo9iHExCMwyxKiii7y2KMcDH78K2UnRmFRYTzNCtQah8UMcJu2LMjneD8A_RLkCM?type=png)](https://mermaid.live/edit#pako:eNqFUU1vgzAM_SvIZ0B8BMJymNTCcTutp5UdUpKtaCRhgUzrEP99aZi0UlWaT_Z7jt9zPEGjGAcCb5r2R29X1dKzMZjDApSdMmzBVvjO6EH94efY7AUduaAfhg9jwPjny5rfrvheK3bRwOWvikuuTDyohnY3TFSqeed6rVJeqlw5qPaaspbKf3Q3XhDce-VSbC-L0hUV-CC4FrRl9uOmM1XDeOSC10BseqCDzWo52z5qRvV0kg2QURvug-mZtVe11G4ggLzSbrAoZ-2o9ONyCXcQH3oqgUzwBSTJ8xChFGGcpXkSo9iHExCMwyxKiii7y2KMcDH78K2UnRmFRYTzNCtQah8UMcJu2LMjneD8A_RLkCM)
+[![](https://mermaid.ink/img/pako:eNqFUU1PhDAQ_StkzkD4KBR7MNmFvenJPQkeurS6RKDYUuNK-O92wUQgmzinmfem8950BigF40DgTdLubB2zorVMKH2agbQWms3YCj9qqcQffo1d3tCeN_RDc9U7jH--rPn9iu-kYIsG3v6qTMnGxIMoaX3DRCbKdy7XKulSZeMgyyVlFW038CGXnFXqHzc7y3HurXQu9ssinYpsWRzAhobLhlbM_O1wpQroz7zhBRCTnqgyWdGOpo_qXjxd2hJILzW3QXfMbJBV1CzZAHmltTKocdgL-Tgfa7qZDR1tgQzwBSSIYxehEGEchXHgI9-GCxCM3cgLEi-6i3yMcDLa8C2Emem5iYfjMEpQaB4kPsLTsOeJnATHH5e1mCs?type=png)](https://mermaid.live/edit#pako:eNqFUU1PhDAQ_StkzkD4KBR7MNmFvenJPQkeurS6RKDYUuNK-O92wUQgmzinmfem8950BigF40DgTdLubB2zorVMKH2agbQWms3YCj9qqcQffo1d3tCeN_RDc9U7jH--rPn9iu-kYIsG3v6qTMnGxIMoaX3DRCbKdy7XKulSZeMgyyVlFW038CGXnFXqHzc7y3HurXQu9ssinYpsWRzAhobLhlbM_O1wpQroz7zhBRCTnqgyWdGOpo_qXjxd2hJILzW3QXfMbJBV1CzZAHmltTKocdgL-Tgfa7qZDR1tgQzwBSSIYxehEGEchXHgI9-GCxCM3cgLEi-6i3yMcDLa8C2Emem5iYfjMEpQaB4kPsLTsOeJnATHH5e1mCs)
 
 ## :key: License
 

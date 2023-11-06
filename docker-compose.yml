@@ -10,8 +10,11 @@ services:
     - LIBSQL_URL=${LIBSQL_URL}
     - LIBSQL_TOKEN=${LIBSQL_TOKEN}
     - BASE_URL=${BASE_URL}
+    - REDIS_URL=${REDIS_URL}
+    - REDIS_PORT=${REDIS_PORT}
     links:
     - radian:radian
+    - redis:redis
     restart: always
 
   radian:
@@ -21,4 +24,11 @@ services:
     - 2112:2112
     volumes:
     - ~/data:/data
+    restart: always
+
+  redis:
+    container_name: redis
+    image: redis
+    ports:
+    - 6379:6379
     restart: always

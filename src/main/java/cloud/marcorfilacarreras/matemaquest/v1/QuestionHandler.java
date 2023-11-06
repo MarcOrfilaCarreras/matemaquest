@@ -3,6 +3,7 @@ package cloud.marcorfilacarreras.matemaquest.v1;
 import cloud.marcorfilacarreras.matemaquest.common.NotFoundHandler;
 import cloud.marcorfilacarreras.matemaquest.libsql.LibsqlController;
 import cloud.marcorfilacarreras.matemaquest.models.Question;
+import cloud.marcorfilacarreras.matemaquest.redis.RedisController;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import spark.Request;
@@ -13,8 +14,8 @@ import spark.Route;
  * Handler class to process requests for questions.
  */
 public class QuestionHandler implements Route {
-    // Initializing the database controller
-    private final LibsqlController db = new LibsqlController();
+    private final LibsqlController db = new LibsqlController(); // Initializing the database controller
+    private final RedisController redis = new RedisController(); // Initializing the redis controller
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
@@ -48,6 +49,11 @@ public class QuestionHandler implements Route {
                 responseJson.add("data", messageJson);
                 response.status(404);
                 return responseJson;
+            }
+            
+            // Fetching question data from Redis
+            if (! (redis.getQuestion(id) == null)){
+                return redis.getQuestion(id);
             }
 
             // Fetching question data from the database

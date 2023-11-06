@@ -43,6 +43,13 @@ public class Question {
         this.answer = answer;
         this.answer_image = answer_image;
     }
+    
+    /**
+     * Gets the id of the question.
+     */
+    public int getId() {
+        return id;
+    }
 
     /**
      * Gets the exercise_image of the question.

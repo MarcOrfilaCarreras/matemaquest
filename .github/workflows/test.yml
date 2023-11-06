@@ -9,6 +9,16 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+        - 6379:6379
     steps:
     - name: Checkout
       uses: actions/checkout@v3
@@ -26,6 +36,8 @@ jobs:
         LIBSQL_URL: ${{ secrets.LIBSQL_URL }}
         LIBSQL_TOKEN: ${{ secrets.LIBSQL_TOKEN }}
         BASE_URL: ${{ secrets.BASE_URL }}
+        REDIS_URL: localhost
+        REDIS_PORT: 6379
 
   docker:
     needs: [test]
