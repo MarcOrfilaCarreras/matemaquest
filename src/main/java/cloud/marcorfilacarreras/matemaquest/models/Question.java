@@ -70,8 +70,6 @@ public class Question {
      * @return The JSON representation of the QuestionObject.
      */
     public String toJson(){
-        buildUrl();
-        
         Gson gson = new Gson();
         return gson.toJson(this);
     }
@@ -87,5 +85,14 @@ public class Question {
         if (!this.answer_image.equals("null")){
             this.answer_image = "/v1/question/" + this.id + "/image/answer";
         }
+    }
+    
+    /**
+     * Converts the QuestionObject to JSON format using the Gson library and formats the URLs.
+     * @return The JSON representation of the QuestionObject.
+     */
+    public String toJsonWithBuildUrl(){
+        buildUrl();
+        return toJson();
     }
 }
