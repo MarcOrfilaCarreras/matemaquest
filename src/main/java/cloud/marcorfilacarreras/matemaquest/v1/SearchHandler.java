@@ -46,7 +46,8 @@ public class SearchHandler implements Route {
                     messageJson.addProperty("message", "Invalid page. Please provide a valid page number.");
                     responseJson.add("data", messageJson);
                     response.status(400);
-                    return responseJson;
+                    response.body(responseJson.toString());
+                    return null;
                 }
             }
 
@@ -57,7 +58,8 @@ public class SearchHandler implements Route {
                 messageJson.addProperty("message", "Invalid page. Please provide a valid page number.");
                 responseJson.add("data", messageJson);
                 response.status(400);
-                return responseJson;
+                response.body(responseJson.toString());
+                return null;
             }
             
             // Checking if the request contains a lang parameter
@@ -73,7 +75,8 @@ public class SearchHandler implements Route {
                     messageJson.addProperty("message", "Invalid lang. Please provide a valid lang (es / ca).");
                     responseJson.add("data", messageJson);
                     response.status(400);
-                    return responseJson;
+                    response.body(responseJson.toString());
+                    return null;
                 }
             }
 
@@ -97,10 +100,12 @@ public class SearchHandler implements Route {
             responseJson.add("meta", messageJson);
 
             // Returning the constructed JSON response
-            return responseJson;
+            response.body(responseJson.toString());
+            return null;
         }
 
         // Handling the case where an invalid request method is used
-        return "{\"status\":\"fail\",\"data\":{\"message\":\"Your request was not valid.\"}}";
+        response.body("{\"status\":\"fail\",\"data\":{\"message\":\"Your request was not valid.\"}}");
+        return null;
     }
 }

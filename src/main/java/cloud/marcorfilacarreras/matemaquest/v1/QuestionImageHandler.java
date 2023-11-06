@@ -22,7 +22,7 @@ public class QuestionImageHandler implements Route {
         response.type("application/json");
 
         if (request.requestMethod().equals("GET")) {
-            int id;
+            int id = 0;
             RadianController radian = new RadianController();
 
             // Initializing JSON objects for response
@@ -38,7 +38,8 @@ public class QuestionImageHandler implements Route {
                 responseJson.addProperty("status", "fail");
                 messageJson.addProperty("message", "Invalid ID. Please provide a valid integer ID.");
                 responseJson.add("data", messageJson);
-                return responseJson;
+                response.body(responseJson.toString());
+                return null;
             }
 
             // Checking for a valid ID range
@@ -47,7 +48,8 @@ public class QuestionImageHandler implements Route {
                 responseJson.addProperty("status", "fail");
                 messageJson.addProperty("message", "Invalid ID. Please provide a valid ID.");
                 responseJson.add("data", messageJson);
-                return responseJson;
+                response.body(responseJson.toString());
+                return null;
             }
 
             // Handling the case where no URI is specified
@@ -55,11 +57,12 @@ public class QuestionImageHandler implements Route {
                 responseJson.addProperty("status", "fail");
                 messageJson.addProperty("message", "No URI specified.");
                 responseJson.add("data", messageJson);
-                return responseJson;
+                response.body(responseJson.toString());
+                return null;
             }
                         
             InputStream image = radian.getImage(id, request.splat()[0]);
-                        
+            
             // Check if the image is null
             if (image == null) {
                 return new NotFoundHandler().handle(request, response);
@@ -73,6 +76,7 @@ public class QuestionImageHandler implements Route {
         }
 
         // Handling an invalid request method
-        return "{\"status\":\"fail\",\"data\":{\"message\":\"Your request was not valid.\"}}";
+        response.body("{\"status\":\"fail\",\"data\":{\"message\":\"Your request was not valid.\"}}");
+        return null;
     }
 }

@@ -23,7 +23,7 @@ public class QuestionHandler implements Route {
         response.type("application/json");
 
         if (request.requestMethod().equals("GET")) {
-            int id;
+            int id = 0;
 
             // Initializing JSON objects for response
             JsonObject responseJson = new JsonObject();
@@ -38,7 +38,8 @@ public class QuestionHandler implements Route {
                 messageJson.addProperty("message", "Invalid ID. Please provide a valid integer ID.");
                 responseJson.add("data", messageJson);
                 response.status(404);
-                return responseJson;
+                response.body(responseJson.toString());
+                return null;
             }
 
             // Checking for valid ID range
@@ -48,7 +49,8 @@ public class QuestionHandler implements Route {
                 messageJson.addProperty("message", "Invalid ID. Please provide a valid ID.");
                 responseJson.add("data", messageJson);
                 response.status(404);
-                return responseJson;
+                response.body(responseJson.toString());
+                return null;
             }
             
             // Fetching question data from Redis
@@ -56,7 +58,8 @@ public class QuestionHandler implements Route {
                 // Formulating a success response with the question data
                 responseJson.addProperty("status", "success");
                 responseJson.add("data", new Gson().fromJson(redis.getQuestion(id), JsonObject.class));
-                return responseJson;
+                response.body(responseJson.toString());
+                return null;
             }
 
             // Fetching question data from the database
@@ -66,16 +69,20 @@ public class QuestionHandler implements Route {
             if (question == null){
                 return new NotFoundHandler().handle(request, response);
             }
+            
+            redis.saveQuestion(question.getId(), question.toJsonWithBuildUrl());
 
             // Formulating a success response with the question data
             responseJson.addProperty("status", "success");
-            responseJson.add("data", new Gson().fromJson(question.toJson(), JsonObject.class));
+            responseJson.add("data", new Gson().fromJson(question.toJsonWithBuildUrl(), JsonObject.class));
 
             // Returning the JSON response
-            return responseJson;
+            response.body(responseJson.toString());
+            return null;
         }
 
         // Handling invalid request method
-        return "{\"status\":\"fail\",\"data\":{\"message\":\"Your request was not valid.\"}}";
+        response.body("{\"status\":\"fail\",\"data\":{\"message\":\"Your request was not valid.\"}}");
+        return null;
     }
 }

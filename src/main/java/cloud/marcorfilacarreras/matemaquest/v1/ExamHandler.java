@@ -23,7 +23,7 @@ public class ExamHandler implements Route {
         response.type("application/json");
 
         if (request.requestMethod().equals("GET")) {
-            int id;
+            int id = 0;
 
             // Initializing JSON objects for response
             JsonObject responseJson = new JsonObject();
@@ -38,7 +38,8 @@ public class ExamHandler implements Route {
                 messageJson.addProperty("message", "Invalid ID. Please provide a valid integer ID.");
                 responseJson.add("data", messageJson);
                 response.status(404);
-                return responseJson;
+                response.body(responseJson.toString());
+                return null;
             }
 
             // Checking for valid ID range
@@ -48,7 +49,8 @@ public class ExamHandler implements Route {
                 messageJson.addProperty("message", "Invalid ID. Please provide a valid ID.");
                 responseJson.add("data", messageJson);
                 response.status(404);
-                return responseJson;
+                response.body(responseJson.toString());
+                return null;
             }
             
             // Fetching exam data from Redis
@@ -56,7 +58,8 @@ public class ExamHandler implements Route {
                 // Formulating a success response with the exam data
                 responseJson.addProperty("status", "success");
                 responseJson.add("data", new Gson().fromJson(redis.getExam(id), JsonObject.class));
-                return responseJson;
+                response.body(responseJson.toString());
+                return null;
             }
 
             // Fetching exam data from the database
@@ -66,16 +69,20 @@ public class ExamHandler implements Route {
             if (exam == null){
                 return new NotFoundHandler().handle(request, response);
             }
+            
+            redis.saveExam(id, exam.toJson());
 
             // Formulating a success response with the exam data
             responseJson.addProperty("status", "success");
             responseJson.add("data", new Gson().fromJson(exam.toJson(), JsonObject.class));
 
             // Returning the JSON response
-            return responseJson;
+            response.body(responseJson.toString());
+            return null;
         }
 
         // Handling invalid request method
-        return "{\"status\":\"fail\",\"data\":{\"message\":\"Your request was not valid.\"}}";
+        response.body("{\"status\":\"fail\",\"data\":{\"message\":\"Your request was not valid.\"}}");
+        return null;
     }
 }
