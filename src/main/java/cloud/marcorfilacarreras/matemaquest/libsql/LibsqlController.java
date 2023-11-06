@@ -2,7 +2,6 @@ package cloud.marcorfilacarreras.matemaquest.libsql;
 
 import cloud.marcorfilacarreras.matemaquest.models.Exam;
 import cloud.marcorfilacarreras.matemaquest.models.Question;
-import cloud.marcorfilacarreras.matemaquest.redis.RedisController;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +9,6 @@ public class LibsqlController {
     
     private final String url = System.getenv("LIBSQL_URL");
     private final String authToken = System.getenv("LIBSQL_TOKEN");
-    private final static RedisController redis = new RedisController();
 
     public LibsqlController() {
     }
@@ -56,8 +54,6 @@ public class LibsqlController {
             
             exam.appendQuestion(q);
         }
-        
-        redis.saveExam(id, exam.toJson());
 
         return exam;
     }
@@ -98,8 +94,6 @@ public class LibsqlController {
                     (String) row.get(7)
             );
         }
-        
-        redis.saveQuestion(question.getId(), question.toJson());
 
         return question;
     }
