@@ -1,5 +1,6 @@
 package cloud.marcorfilacarreras.matemaquest;
 
+import cloud.marcorfilacarreras.matemaquest.common.AfterHandler;
 import cloud.marcorfilacarreras.matemaquest.common.InternalServerErrorHandler;
 import cloud.marcorfilacarreras.matemaquest.common.NotFoundHandler;
 import cloud.marcorfilacarreras.matemaquest.v1.ExamHandler;
@@ -33,6 +34,7 @@ public class App {
         */
         notFound(new NotFoundHandler());
         internalServerError(new InternalServerErrorHandler());
+        after(new AfterHandler());
 
         // Initialize the server
         init();
