@@ -53,7 +53,10 @@ public class ExamHandler implements Route {
             
             // Fetching exam data from Redis
             if (! (redis.getExam(id) == null)){
-                return redis.getExam(id);
+                // Formulating a success response with the exam data
+                responseJson.addProperty("status", "success");
+                responseJson.add("data", new Gson().fromJson(redis.getExam(id), JsonObject.class));
+                return responseJson;
             }
 
             // Fetching exam data from the database

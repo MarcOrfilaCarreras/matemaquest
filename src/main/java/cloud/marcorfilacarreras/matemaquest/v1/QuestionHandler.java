@@ -53,7 +53,10 @@ public class QuestionHandler implements Route {
             
             // Fetching question data from Redis
             if (! (redis.getQuestion(id) == null)){
-                return redis.getQuestion(id);
+                // Formulating a success response with the question data
+                responseJson.addProperty("status", "success");
+                responseJson.add("data", new Gson().fromJson(redis.getQuestion(id), JsonObject.class));
+                return responseJson;
             }
 
             // Fetching question data from the database
