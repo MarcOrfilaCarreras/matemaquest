@@ -103,13 +103,22 @@ public class LibsqlController {
      *
      * @param page The page of the search.
      * @param lang The lang of the search.
-     * @return The String containing the response.
+     * @param name The name of the search.
+     * @return A list with the exams.
      */
-    public List<Exam> getSearch(int page, String lang) {
+    public List<Exam> getSearch(int page, String lang, String name) {
         List<Exam> exams = new ArrayList<Exam>();
         
         // Constructing the query string
-        String query = "SELECT * FROM exams where lang = '" + lang + "' ORDER BY id LIMIT 10 " + " OFFSET " + ((page - 1) * 10) + ";";
+        String query = "SELECT * FROM exams where lang = '" + lang + "'";
+        
+        // If name is not null
+        if (name != null){
+            query = query + " AND name LIKE '%" + name + "%'";
+        }
+        
+        // Limit the query
+        query = query + " ORDER BY id LIMIT 10 " + " OFFSET " + ((page - 1) * 10) + ";";
 
         // Creating the client instance for SQL operations
         LibsqlClient client = LibsqlClient.builder(url).authToken(authToken).build();
@@ -126,11 +135,26 @@ public class LibsqlController {
         return exams;
     }
     
-    public int getSearchPages(String lang) {
+    /**
+     * Retrieves the number of pages of a query.
+     *
+     * @param lang The lang of the search.
+     * @param name The name of the search.
+     * @return An integer with the number of pages.
+     */
+    public int getSearchPages(String lang, String name) {
         int totalPages = 0;
         
         // Constructing the query string
-        String query = "SELECT COUNT(*) FROM exams where lang = '" + lang + "';";
+        String query = "SELECT COUNT(*) FROM exams where lang = '" + lang + "'";
+        
+        // If name is not null
+        if (name != null){
+            query = query + " AND name LIKE '%" + name + "%'";
+        }
+        
+        // Close the query
+        query = query + ";";
         
         // Creating the client instance for SQL operations
         LibsqlClient client = LibsqlClient.builder(url).authToken(authToken).build();

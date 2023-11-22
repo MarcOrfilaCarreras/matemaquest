@@ -1,5 +1,6 @@
 package cloud.marcorfilacarreras.matemaquest.v1;
 
+import cloud.marcorfilacarreras.matemaquest.common.Utils;
 import cloud.marcorfilacarreras.matemaquest.libsql.LibsqlController;
 import cloud.marcorfilacarreras.matemaquest.models.Exam;
 import com.google.gson.Gson;
@@ -25,6 +26,7 @@ public class SearchHandler implements Route {
         if (request.requestMethod().equals("GET")) {
             int page = 0; // Defaulting the page number to 0
             String lang = "es"; // Defaulting the lang to "es"
+            String name = null; // Defaulting the name to null
                         
             // Initializing JSON objects for constructing the response
             JsonObject responseJson = new JsonObject();
@@ -79,9 +81,24 @@ public class SearchHandler implements Route {
                     return null;
                 }
             }
+            
+            // Checking if the request contains a name parameter
+            if (request.queryMap("name").hasValue()) {
+                try {
+                    // Checking if the value is valid
+                    name = new Utils().validateAndEscapeInput(request.queryMap("name").value().toLowerCase());
+                } catch (IllegalArgumentException e){
+                    responseJson.addProperty("status", "fail");
+                    messageJson.addProperty("message", e.getMessage());
+                    responseJson.add("data", messageJson);
+                    response.status(400);
+                    response.body(responseJson.toString());
+                    return null;
+                }
+            }
 
-            // Fetching search data from the database based on the provided page number
-            List<Exam> data = db.getSearch(page, lang.toLowerCase());
+            // Fetching search data from the database based on the provided page number, lang and name
+            List<Exam> data = db.getSearch(page, lang.toLowerCase(), name);
             
             // Adding the fetched search data to the response array after converting it to the appropriate JSON format
             for (Exam exam : data){
@@ -90,7 +107,7 @@ public class SearchHandler implements Route {
 
             // Adding metadata to the response message
             messageJson.addProperty("page", page);
-            messageJson.addProperty("pageCount", db.getSearchPages(lang.toLowerCase()));
+            messageJson.addProperty("pageCount", db.getSearchPages(lang.toLowerCase(), name));
             
             // Constructing a success response with the search data
             responseJson.addProperty("status", "success");
