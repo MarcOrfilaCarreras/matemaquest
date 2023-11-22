@@ -47,4 +47,28 @@ public class RedisController {
     public void saveQuestion(int id, String json){
         pool.set("question:" + id, json);
     }
+    
+    /**
+    * Retrives a search.
+    *
+    * @param page The page of the search.
+    * @param lang The lang of the search.
+    * @param name The name of the search.
+    * @return The String containing the response.
+    */
+    public String getSearch(int page, String lang, String name){
+        return pool.get("search:" + page + "-" + lang + "-" + name);
+    }
+    
+    /**
+    * Saves a search.
+    *
+    * @param page The page of the search.
+    * @param lang The lang of the search.
+    * @param name The name of the search.
+    * @param json The JSON string of the search.
+    */
+    public void saveSearch(int page, String lang, String name, String json){
+        pool.set("search:" + page + "-" + lang + "-" + name, json);
+    }
 }

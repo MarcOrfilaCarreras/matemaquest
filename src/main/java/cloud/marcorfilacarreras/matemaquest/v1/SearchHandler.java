@@ -1,11 +1,14 @@
 package cloud.marcorfilacarreras.matemaquest.v1;
 
+import cloud.marcorfilacarreras.matemaquest.common.NotFoundHandler;
 import cloud.marcorfilacarreras.matemaquest.common.Utils;
 import cloud.marcorfilacarreras.matemaquest.libsql.LibsqlController;
 import cloud.marcorfilacarreras.matemaquest.models.Exam;
+import cloud.marcorfilacarreras.matemaquest.redis.RedisController;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import java.util.List;
 import spark.Request;
 import spark.Response;
@@ -15,8 +18,8 @@ import spark.Route;
  * The SearchHandler class is responsible for handling and processing requests related to searches.
  */
 public class SearchHandler implements Route {
-    // Initializing the database controller for handling SQL operations
-    private final LibsqlController db = new LibsqlController();
+    private final LibsqlController db = new LibsqlController(); // Initializing the database controller for handling SQL operations
+    private final RedisController redis = new RedisController(); // Initializing the redis controller
 
     @Override
     public Object handle(Request request, Response response) throws Exception {
@@ -96,9 +99,27 @@ public class SearchHandler implements Route {
                     return null;
                 }
             }
+            
+            // Fetching search data from Redis
+            if (! (redis.getSearch(page, lang.toLowerCase(), name) == null)){
+                // Formulating a success response with the search data
+                responseJson.addProperty("status", "success");
+
+                // Extract the "data" key from the cached data
+                responseJson.add("data", JsonParser.parseString(redis.getSearch(page, lang.toLowerCase(), name)).getAsJsonObject().getAsJsonArray("data"));
+                responseJson.add("meta", JsonParser.parseString(redis.getSearch(page, lang.toLowerCase(), name)).getAsJsonObject().get("meta"));
+
+                response.body(responseJson.toString());
+                return null;
+            }
 
             // Fetching search data from the database based on the provided page number, lang and name
             List<Exam> data = db.getSearch(page, lang.toLowerCase(), name);
+            
+            // Check if the data has results
+            if (data.size() == 0){
+                return new NotFoundHandler().handle(request, response);
+            }
             
             // Adding the fetched search data to the response array after converting it to the appropriate JSON format
             for (Exam exam : data){
@@ -109,13 +130,15 @@ public class SearchHandler implements Route {
             messageJson.addProperty("page", page);
             messageJson.addProperty("pageCount", db.getSearchPages(lang.toLowerCase(), name));
             
-            // Constructing a success response with the search data
-            responseJson.addProperty("status", "success");
-            
             // Including the response data and metadata in the final response JSON
             responseJson.add("data", responseArray);
             responseJson.add("meta", messageJson);
-
+            
+            redis.saveSearch(page, lang, name, responseJson.toString());
+            
+            // Constructing a success response with the search data
+            responseJson.addProperty("status", "success");
+            
             // Returning the constructed JSON response
             response.body(responseJson.toString());
             return null;
