@@ -28,6 +28,11 @@
             <artifactId>jedis</artifactId>
             <version>4.3.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.21</version>
+        </dependency>
         
         <!-- Tests -->
         <!-- https://stackoverflow.com/a/62761463 -->
